@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+dotnet: 8.0
+solution: NameSorterSolution.sln
+
+install:
+  - dotnet restore
+
+script:
+  - dotnet build
+  - dotnet test NameSorter.Tests/NameSorter.Tests.csproj
