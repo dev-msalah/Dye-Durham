@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 8.0
+dotnet: 5.0
 solution: NameSorterSolution.sln
 
 install:
