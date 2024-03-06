@@ -40,7 +40,7 @@ NameSorter.exe unsorted-names-list.txt
 ```
 
 The sorted names will be written to a file named sorted-names-list.txt in the bin\Debug\net8 directory. and it will be displayed on the command line too.
-
+ere h
 ## Testing
 To run the unit tests, navigate to the test project directory and execute the following steps:
 
@@ -54,6 +54,10 @@ cd ..\..\..\..\NameSorter.Tests\
 ```bash
 dotnet test
 ```
+
+## CI/CD
+
+I have tried to add the solution to travis-ci, but the project is not building because they do not support .NET 8.0.
 
 ## Dependencies
 .NET Core 8.0
