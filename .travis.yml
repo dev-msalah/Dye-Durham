@@ -5,10 +5,11 @@ solution: NameSorterSolution/NameSorterSolution.sln
 
 before_script:
   - sudo apt-get install nuget
+
 install:
   - nuget restore NameSorterSolution/NameSorterSolution.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 
 script:
-  - msbuild /p:Configuration=Release NameSorterSolution/NameSorterSolution.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe NameSorterSolution/NameSorter.Tests/bin/Release/net8.0/NameSorter.Tests.dll
+  - dotnet build NameSorterSolution/NameSorterSolution.sln --configuration Release
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe NameSorterSolution/NameSorter.Tests/bin/Release/net5.0/NameSorter.Tests.dll
