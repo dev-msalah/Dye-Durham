@@ -19,6 +19,10 @@ namespace NameSorter.Services
 
             try
             {
+                if (string.IsNullOrWhiteSpace(filePath))
+                {
+                    throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+                }
                 if (!File.Exists(filePath))
                 {
                     throw new FileNotFoundException($"The file '{filePath}' does not exist.");
@@ -35,6 +39,10 @@ namespace NameSorter.Services
                         }
                     }
                 }
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, $"The arguments can't be null '{filePath}'.");
             }
             catch (FileNotFoundException ex)
             {

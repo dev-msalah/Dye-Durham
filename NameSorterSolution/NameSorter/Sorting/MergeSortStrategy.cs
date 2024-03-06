@@ -13,6 +13,12 @@ namespace NameSorter.Sorting
 
         public List<string> SortNames(List<string> unsortedNames)
         {
+            if (unsortedNames == null || !unsortedNames.Any())
+            {
+                _logger.LogError("Names cannot be null or empty.");
+                throw new ArgumentException("Names cannot be null or empty.", nameof(unsortedNames));
+            }
+
             _logger.LogInformation("Starting Merge Sort...");
 
             if (unsortedNames.Count <= 1)

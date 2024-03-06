@@ -1,14 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
+using NameSorter.Services;
+using NameSorter.Sorting;
+using NameSorter.Tests.Mocks;
 
-namespace NameSorter.Sorting.Tests
+namespace NameSorter.Tests
 {
     public class MergeSortStrategyTests
     {
         [Fact]
         public void SortNames_ListIsAlreadySorted_ReturnsSameList()
         {
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
             var sortedNames = new List<string> { "Carson Case", "Dolores Jongejans", "Phyliss Sol Noreen", "Waldo Baerents Tegan" };
 
@@ -20,19 +23,18 @@ namespace NameSorter.Sorting.Tests
         [Fact]
         public void SortNames_ListIsEmpty_ReturnsEmptyList()
         {
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
             var emptyList = new List<string>();
 
-            var result = mergeSortStrategy.SortNames(emptyList);
-
-            Assert.Empty(result);
+            Assert.Throws<ArgumentException>(() => mergeSortStrategy.SortNames(emptyList));
         }
 
         [Fact]
         public void SortNames_ListIsUnsorted_ReturnsSortedNames()
         {
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
+           
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
             var unsortedNames = new List<string> { "Waldo Baerents Tegan", "Dolores Jongejans", "Carson Case", "Phyliss Sol Noreen" };
             var expectedSortedNames = new List<string> { "Carson Case", "Dolores Jongejans", "Phyliss Sol Noreen", "Waldo Baerents Tegan" };
@@ -45,7 +47,7 @@ namespace NameSorter.Sorting.Tests
         [Fact]
         public void MergeSort_ListWithSingleElement_ReturnsSameList()
         {
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
             var singleElementList = new List<string> { "Dolores" };
 
@@ -60,7 +62,7 @@ namespace NameSorter.Sorting.Tests
         {
             var unsortedNames = new List<string> { "John", "Alice", "Bob", "Carol", "John", "Bob" };
             var expectedSortedNames = new List<string> { "Alice", "Bob", "Bob", "Carol", "John", "John" };
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
 
             var sortedNames = mergeSortStrategy.SortNames(unsortedNames);
@@ -73,7 +75,7 @@ namespace NameSorter.Sorting.Tests
         {
             var unsortedNames = new List<string> { "John", "Alice", "Bob", "Carol", "@#$%^" };
             var expectedSortedNames = new List<string> { "@#$%^","Alice", "Bob", "Carol", "John" };
-            var loggerMock = new Mock<ILogger<MergeSortStrategy>>();
+             var loggerMock = LoggerFactoryMock.Create<MergeSortStrategy>();
             var mergeSortStrategy = new MergeSortStrategy(loggerMock.Object);
 
             var sortedNames = mergeSortStrategy.SortNames(unsortedNames);

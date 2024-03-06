@@ -18,7 +18,8 @@ namespace NameSorter.DependencyInjection
                 })
                 .AddSingleton<IFileReader, FileReader>()
                 .AddSingleton<IFileWriter, FileWriter>()
-                .AddSingleton<ISortStrategy, MergeSortStrategy>()
+                //.AddSingleton<ISortStrategy, MergeSortStrategy>()
+                .AddSingleton<ISortStrategy, QuickSortStrategy>()
                 .AddSingleton<INameSorterService, NameSorterService>()
                 .BuildServiceProvider();
 

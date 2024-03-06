@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NameSorter.DependencyInjection;
 using NameSorter.Interfaces;
-using NameSorter.Services;
-using NameSorter.Sorting;
 
 namespace NameSorter
 {

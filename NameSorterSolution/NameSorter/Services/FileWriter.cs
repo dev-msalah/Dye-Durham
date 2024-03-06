@@ -1,7 +1,5 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using NameSorter.Interfaces;
-using System;
 
 namespace NameSorter.Services
 {
@@ -18,13 +16,17 @@ namespace NameSorter.Services
         {
             try
             {
-                if (names == null || string.IsNullOrWhiteSpace(filePath))
+                if (string.IsNullOrWhiteSpace(filePath))
                 {
-                    throw new ArgumentNullException(nameof(names));
+                    throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+                }
+                if (names == null)
+                {
+                    throw new ArgumentException("Names cannot be null or empty.", nameof(names));
                 }
 
                 string directory = Path.GetDirectoryName(filePath);
-                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
@@ -36,6 +38,10 @@ namespace NameSorter.Services
                         writer.WriteLine(name);
                     }
                 }
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, $"The arguments can't be null Arguments => '{nameof(names)}' & '{nameof(filePath)}'.");
             }
             catch (IOException ex)
             {
@@ -56,7 +62,7 @@ namespace NameSorter.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"An error occurred while checking if the file exists: {ex.Message}");
-                return false; 
+                return false;
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using NameSorter.Interfaces;
 
 namespace NameSorter.Tests.Mocks

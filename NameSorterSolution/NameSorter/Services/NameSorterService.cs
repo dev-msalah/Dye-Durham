@@ -60,7 +60,7 @@ namespace NameSorter.Services
             }
 
             string directory = Path.GetDirectoryName(outputFile);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
             {
                 try
                 {

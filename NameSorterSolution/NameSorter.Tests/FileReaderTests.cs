@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Xunit;
-using NameSorter.Tests.Mocks;
+﻿using NameSorter.Tests.Mocks;
 
 namespace NameSorter.Tests
 {

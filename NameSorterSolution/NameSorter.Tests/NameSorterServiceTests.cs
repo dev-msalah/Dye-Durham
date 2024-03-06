@@ -1,8 +1,6 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
-using NameSorter.Interfaces;
 using NameSorter.Services;
 using NameSorter.Sorting;
 using NameSorter.Tests.Mocks;
@@ -17,7 +15,8 @@ namespace NameSorter.Tests
             var inputFile = "nonExistentFile.txt";
             var outputFile = "outputFile.txt";
 
-            var loggerMock = new Mock<ILogger<NameSorterService>>();
+            var loggerMock = LoggerFactoryMock.Create<NameSorterService>();
+            
             var fileReaderMock = new FileReaderMock();
             fileReaderMock.SetupReadNamesFromFile(inputFile, null);
 
@@ -37,7 +36,7 @@ namespace NameSorter.Tests
             var inputFile = "input.txt";
             var outputFile = "output.txt";
 
-            var loggerMock = new Mock<ILogger<NameSorterService>>();
+            var loggerMock = LoggerFactoryMock.Create<NameSorterService>();
 
             var fileReaderMock = new FileReaderMock();
             fileReaderMock.SetupReadNamesFromFile(inputFile, new List<string>());
@@ -58,7 +57,7 @@ namespace NameSorter.Tests
             var inputFile = "nonexistent.txt";
             var outputFile = "output.txt";
 
-            var loggerMock = new Mock<ILogger<NameSorterService>>();
+            var loggerMock = LoggerFactoryMock.Create<NameSorterService>();
 
             var fileReaderMock = new FileReaderMock();
             fileReaderMock.SetupReadNamesFromFile(inputFile, null);
@@ -96,6 +95,25 @@ namespace NameSorter.Tests
 
             Assert.NotNull(result);
             Assert.Equal(expectedNames, result);
+        }
+
+        [Fact]
+        public void SortNamesFromFile_InvalidOutputFilePath_ReturnsNull()
+        {
+            var inputFile = "input.txt";
+            var outputFile = ""; // Invalid file path
+
+            var loggerMock = LoggerFactoryMock.Create<NameSorterService>();
+            var fileReaderMock = new FileReaderMock();
+            fileReaderMock.SetupReadNamesFromFile(inputFile, new List<string>());
+
+            var fileWriterMock = new FileWriterMock();
+            var sortStrategyMock = new SortStrategyMock();
+
+            var nameSorterService = new NameSorterService(loggerMock.Object, fileReaderMock.Object, fileWriterMock.Object, sortStrategyMock.Object);
+            var result = nameSorterService.SortNamesFromFile(inputFile, outputFile);
+
+            Assert.Null(result);
         }
     }
 }
