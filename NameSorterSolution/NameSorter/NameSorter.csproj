@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)\unsorted-names-list.txt&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;" />
+    <Exec Command="xcopy &quot;..\unsorted-names-list.txt&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;" />
   </Target>
 
 </Project>

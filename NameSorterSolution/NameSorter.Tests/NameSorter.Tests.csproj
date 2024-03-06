@@ -27,8 +27,4 @@
     <ProjectReference Include="..\NameSorter\NameSorter.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)\unsorted-names-list.txt&quot; &quot;$(TargetDir)&quot; /Y" />
-  </Target>
-
 </Project>
