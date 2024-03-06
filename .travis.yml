@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 5.0
+dotnet: 8.0
 solution: NameSorterSolution/NameSorterSolution.sln
 
 before_script:
