@@ -55,6 +55,19 @@ cd ..\..\..\..\NameSorter.Tests\
 dotnet test
 ```
 
+## Modifying the test data
+If you want to modify the test data for the application, follow these steps:
+
+1. Navigate to the root of the solution.
+2. Locate a text file named 'unsorted-names-list.txt'.
+3. Edit the data in the text file as desired.
+4. Build the solution again after modification to copy the file into the bin folder:
+   ```bash
+   dotnet build
+   ```
+   Note: There is a post-build event to copy the file, so no additional steps are required other than building the solution.
+5. Run the application as mentioned in the Usage section.
+
 ## CI/CD
 
 I have tried to add the solution to travis-ci, but the project is not building because they do not support .NET 8.0.
